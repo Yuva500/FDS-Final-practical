@@ -1,0 +1,95 @@
+"""a) Write a python program to store roll numbers of student in array who
+attended training program in random order. Write function for searching
+whether particular student attended training program or not,
+using Linear search and Sentinel search.
+"""
+
+def main():
+    while True:
+        print("\n1.Accept Roll number")
+        print("\n2. Display Data")
+        print("\n3.Linear search")
+        print("\n4.Sentinel Search")
+        print("\n5.Exit")
+        print("Enter your Choice")
+        choice=int(input())
+        if choice==5:
+            print("\nEnd of Program")
+            break
+        elif choice==1:
+            Roll=Accept_Data()
+        elif choice==2:
+            Display_Data(Roll)
+        elif choice==3:
+            Linear_Search(Roll)
+        elif choice==4:
+            Sentinel_Search(Roll)
+
+
+
+def Accept_Data():
+    print("\nEnter total number of students")
+    n=int(input())
+    R=[]
+    for i in range(n):
+        print("\n Enter roll number",end='')
+        a=int(input())
+        R.append(a)
+    return R
+    
+def Display_Data(Roll):
+    n=len(Roll)
+    if n==0:
+        print("\n No students")
+    else:
+        print("\nRoll number of students are")
+        for i in Roll:
+            print(i,end=' ')
+
+def Linear_Search(Roll):
+    print("\nEnter key value to search")
+    key=int(input())
+    flag=0
+    Display_Data(Roll)
+    for i in range(len(Roll)):
+        if Roll[i]==key:
+            print("\n Key ",key," Found at Index ", i+1)
+            flag=1
+            break
+    if flag==0:
+        print("\nKey ",key, " Not found")
+    
+def Sentinel_Search(Roll):
+    n=len(Roll)
+    last=Roll[n-1]
+    print("\nEnter key value to search")
+    key=int(input())
+    Roll[n-1]=key
+    i=0
+    while Roll[i]!=key:
+        i=i+1
+    Roll[n-1]=last
+    if i<n-1 or Roll[n-1]==key:
+        print("\n Key ",key," Found at Index ", i+1)
+    else:
+        print("\nKey ",key, " Not found")
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+            
+            
+        

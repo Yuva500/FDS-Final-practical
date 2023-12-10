@@ -1,0 +1,57 @@
+# b) Write a python program to store roll numbers of student array who attended training 
+# program in sorted order. Write function for searching whether particular student 
+# attended training program or not, using Binary search and Fibonacci search 
+
+def binary_search(arr, target):
+    low, high = 0, len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            return True
+        elif arr[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return False
+
+def fibonacci_search(arr, target):
+    def generate_fibonacci(n):
+        fib = [0, 1]
+        while fib[-1] < n:
+            fib.append(fib[-1] + fib[-2])
+        return fib
+
+    fib = generate_fibonacci(len(arr))
+    offset = 0
+
+    while fib[-1] > 1:
+        i = min(offset + fib[-2], len(arr) - 1)
+        if arr[i] == target:
+            return True
+        elif arr[i] < target:
+            fib = fib[:-2]
+            offset = i
+        else:
+            fib = fib[:-1]
+
+    return False
+
+def main_binary_fibonacci():
+    roll_numbers = [101, 102, 103, 104, 105]
+
+    search_roll = int(input("Enter the roll number to search: "))
+
+    roll_numbers.sort()  # Ensure the array is sorted for binary and fibonacci search
+
+    if binary_search(roll_numbers, search_roll):
+        print(f"Roll number {search_roll} attended the training program (using binary search).")
+    else:
+        print(f"Roll number {search_roll} did not attend the training program (using binary search).")
+
+    if fibonacci_search(roll_numbers, search_roll):
+        print(f"Roll number {search_roll} attended the training program (using fibonacci search).")
+    else:
+        print(f"Roll number {search_roll} did not attend the training program (using fibonacci search).")
+
+if __name__ == "__main__":
+    main_binary_fibonacci()

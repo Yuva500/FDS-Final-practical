@@ -1,0 +1,76 @@
+# Write a python program to compute following computation on matrix  
+# a) Addition of matrices 
+# b) Subtraction of matrices 
+# c) Multiplication of matrices 
+# d) Transpose of matrix 
+
+
+def input_matrix(rows, cols):
+    matrix = []
+    for i in range(rows):
+        row = []
+        for j in range(cols):
+            element = float(input(f"Enter the element at position ({i + 1}, {j + 1}): "))
+            row.append(element)
+        matrix.append(row)
+    return matrix
+
+def display_matrix(matrix):
+    for row in matrix:
+        print(row)
+
+def add_matrices(matrix1, matrix2):
+    result = [[matrix1[i][j] + matrix2[i][j] for j in range(len(matrix1[0]))] for i in range(len(matrix1))]
+    return result
+
+def subtract_matrices(matrix1, matrix2):
+    result = [[matrix1[i][j] - matrix2[i][j] for j in range(len(matrix1[0]))] for i in range(len(matrix1))]
+    return result
+
+def multiply_matrices(matrix1, matrix2):
+    result = [[sum(matrix1[i][k] * matrix2[k][j] for k in range(len(matrix2))) for j in range(len(matrix2[0]))] for i in range(len(matrix1))]
+    return result
+
+def transpose_matrix(matrix):
+    result = [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
+    return result
+
+def main():
+    rows1 = int(input("Enter the number of rows for matrix 1: "))
+    cols1 = int(input("Enter the number of columns for matrix 1: "))
+    matrix1 = input_matrix(rows1, cols1)
+
+    rows2 = int(input("Enter the number of rows for matrix 2: "))
+    cols2 = int(input("Enter the number of columns for matrix 2: "))
+    matrix2 = input_matrix(rows2, cols2)
+
+    print("\nMatrix 1:")
+    display_matrix(matrix1)
+
+    print("\nMatrix 2:")
+    display_matrix(matrix2)
+
+    if rows1 == rows2 and cols1 == cols2:
+        print("\nMatrix Addition:")
+        result_addition = add_matrices(matrix1, matrix2)
+        display_matrix(result_addition)
+
+        print("\nMatrix Subtraction:")
+        result_subtraction = subtract_matrices(matrix1, matrix2)
+        display_matrix(result_subtraction)
+    else:
+        print("Matrix addition and subtraction are not possible due to different dimensions.")
+
+    if cols1 == rows2:
+        print("\nMatrix Multiplication:")
+        result_multiplication = multiply_matrices(matrix1, matrix2)
+        display_matrix(result_multiplication)
+    else:
+        print("Matrix multiplication is not possible due to incompatible dimensions.")
+
+    print("\nTranspose of Matrix 1:")
+    result_transpose = transpose_matrix(matrix1)
+    display_matrix(result_transpose)
+
+if __name__ == "__main__":
+    main()

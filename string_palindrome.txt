@@ -1,0 +1,58 @@
+# Write a python program to compute following operations on String: 
+# a) To display word with the longest length 
+# b) To determines the frequency of occurrence of particular character in the string 
+# c) To check whether given string is palindrome or not  
+# d) To display index of first appearance of the substring  
+# e) To count the occurrences of each word in a given string 
+
+
+def longest_word(sentence):
+    words = sentence.split()
+    
+    longest_word = max(words , key=len)
+    print(f" longest word is {longest_word}")
+
+def frequency(sentence, char):
+    frequency = sentence.count(char)
+    print(f"Frequency of {char} is {frequency}")
+
+def isPalindrome(word):
+    reversed_word = word[::-1]
+    if word == reversed_word:
+        print(f" {word} is a palindrome")
+    else:
+        print(f" {word} is not a palindrome ")
+
+
+def substring_index(sentence , substring):
+    index = sentence.find(substring)
+
+    if index !=-1:
+        print(f" Index of first appearance of {substring} : {index}")
+    else:
+        print("Substring not found")    
+
+def word_occurence(sentence):
+    words = sentence.split()
+    word_count = {}
+
+    for word in words :
+        word_count[word] = word_count.get(word, 0 ) + 1
+
+    print("Word occurences")
+    for word , count in word_count.items():
+        print(f" {word} : {count} ")
+
+sentence = input("Enter string to check")
+longest_word(sentence)
+
+char = input("Enter character to find frequency")
+frequency(sentence , char)
+
+isPalindrome(sentence)
+
+substring = input("Enter the substring to check")
+substring_index(sentence , substring)
+
+
+word_occurence(sentence)

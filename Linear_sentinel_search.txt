@@ -1,0 +1,36 @@
+# a) Write a python program to store roll numbers of student in array who attended 
+# training program in random order. Write function for searching whether particular 
+# student attended training program or not, using Linear search and Sentinel search.
+
+def linear_search(arr, target):
+    for i in range(len(arr)):
+        if arr[i] == target:
+            return True
+    return False
+
+def sentinel_search(arr, target):
+    # Add a sentinel at the end
+    arr.append(target)
+    i = 0
+    while arr[i] != target:
+        i += 1
+    arr.pop()  # Remove the sentinel
+    return i < len(arr)
+
+def main_linear_sentinel():
+    roll_numbers = [101, 102, 103, 104, 105]
+
+    search_roll = int(input("Enter the roll number to search: "))
+
+    if linear_search(roll_numbers, search_roll):
+        print(f"Roll number {search_roll} attended the training program.")
+    else:
+        print(f"Roll number {search_roll} did not attend the training program.")
+
+    if sentinel_search(roll_numbers, search_roll):
+        print(f"Roll number {search_roll} attended the training program (using sentinel search).")
+    else:
+        print(f"Roll number {search_roll} did not attend the training program (using sentinel search).")
+
+if __name__ == "__main__":
+    main_linear_sentinel()

@@ -1,0 +1,58 @@
+
+// use stack to check expression is parenthesized or not
+
+
+#include <iostream>
+#include <stack>
+#include <cstring>
+
+using namespace std;
+
+bool isOpening(char ch) {
+    return (ch == '(' || ch == '{' || ch == '[');
+}
+
+bool isClosing(char ch) {
+    return (ch == ')' || ch == '}' || ch == ']');
+}
+
+bool isMatching(char open, char close) {
+    return ((open == '(' && close == ')') ||
+            (open == '{' && close == '}') ||
+            (open == '[' && close == ']'));
+}
+
+bool isWellParenthesized(const char* expression) {
+    stack<char> s;
+
+    for (int i = 0; i < strlen(expression); i++) {
+        if (isOpening(expression[i])) {
+            s.push(expression[i]);
+        } else if (isClosing(expression[i])) {
+            if (s.empty() || !isMatching(s.top(), expression[i])) {
+                return false; // Unmatched closing parenthesis
+            } else {
+                s.pop();
+            }
+        }
+    }
+
+    return s.empty(); // True if the stack is empty, meaning all parentheses are balanced
+}
+
+int main() {
+    char expression[100];
+
+    // Input expression
+    cout << "Enter an expression: ";
+    cin.getline(expression, 100);
+
+    // Check if the expression is well-parenthesized
+    if (isWellParenthesized(expression)) {
+        cout << "Expression is well-parenthesized.\n";
+    } else {
+        cout << "Expression is not well-parenthesized.\n";
+    }
+
+    return 0;
+}

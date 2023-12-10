@@ -1,0 +1,119 @@
+
+# Write a Python program to store marks scored in subject "Fundamental of Data Structure" by N students in the class. Write functions to compute following: a) The average score of class b) Highest score and lowest score of class c) Count of students who were absent for the test d) Display mark with highest frequency
+
+
+
+
+
+
+
+def get_marks():
+    n = int(input("Enter the number of students: "))
+    marks = []
+
+    for i in range(n):
+        mark = float(input(f"Enter marks for student {i + 1}: "))
+        marks.append(mark)
+
+    return marks
+
+
+def compute_average(marks):
+    return sum(marks) / len(marks)
+
+
+def highest_and_lowest(marks):
+    highest = max(marks)
+    lowest = min(marks)
+    return highest, lowest
+
+
+def count_absent_students(marks):
+    absent_count = marks.count(0)  # Assuming 0 indicates an absent student
+    return absent_count
+
+
+def display_highest_frequency(marks):
+    frequency_dict = {}
+
+    for mark in marks:
+        frequency_dict[mark] = frequency_dict.get(mark, 0) + 1
+
+    max_frequency = max(frequency_dict.values())
+    most_frequent_marks = [mark for mark, frequency in frequency_dict.items() if frequency == max_frequency]
+
+    return most_frequent_marks
+
+
+# Main program
+student_marks = get_marks()
+
+average_score = compute_average(student_marks)
+print(f"Average score of the class: {average_score:.2f}")
+
+highest_score, lowest_score = highest_and_lowest(student_marks)
+print(f"Highest score in the class: {highest_score}")
+print(f"Lowest score in the class: {lowest_score}")
+
+absent_count = count_absent_students(student_marks)
+print(f"Number of absent students: {absent_count}")
+
+most_frequent_marks = display_highest_frequency(student_marks)
+print(f"Mark(s) with the highest frequency: {most_frequent_marks}")
+
+
+def get_marks():
+    n = int(input("Enter the number of students: "))
+    marks = []
+
+    for i in range(n):
+        mark = float(input(f"Enter marks for student {i + 1}: "))
+        marks.append(mark)
+
+    return marks
+
+
+def compute_average(marks):
+    return sum(marks) / len(marks)
+
+
+def highest_and_lowest(marks):
+    highest = max(marks)
+    lowest = min(marks)
+    return highest, lowest
+
+
+def count_absent_students(marks):
+    absent_count = marks.count(0)  # Assuming 0 indicates an absent student
+    return absent_count
+
+
+def display_highest_frequency(marks):
+    frequency_dict = {}
+
+    for mark in marks:
+        frequency_dict[mark] = frequency_dict.get(mark, 0) + 1
+
+    max_frequency = max(frequency_dict.values())
+    most_frequent_marks = [mark for mark, frequency in frequency_dict.items() if frequency == max_frequency]
+
+    return most_frequent_marks
+
+
+# Main program
+student_marks = get_marks()
+
+average_score = compute_average(student_marks)
+print(f"Average score of the class: {average_score:.2f}")
+
+highest_score, lowest_score = highest_and_lowest(student_marks)
+print(f"Highest score in the class: {highest_score}")
+print(f"Lowest score in the class: {lowest_score}")
+
+absent_count = count_absent_students(student_marks)
+print(f"Number of absent students: {absent_count}")
+
+most_frequent_marks = display_highest_frequency(student_marks)
+print(f"Mark(s) with the highest frequency: {most_frequent_marks}")
+
+

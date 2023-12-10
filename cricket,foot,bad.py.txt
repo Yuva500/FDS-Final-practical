@@ -1,0 +1,74 @@
+def accept_data(cricket,badminton,football): 
+    c1=int(input("enter no of students for cricket:")) 
+    b1=int(input("enter no of students for badminton:")) 
+    f1=int(input("enter no of students for football:")) 
+    print("no of students for cricket",c1) 
+    print("no of students for badminton",b1) 
+    print("no of students for football",f1) 
+ 
+    for i in range(c1): 
+        name=input("Enter a name: ") 
+        cricket.add(name) 
+        print("names for cricket students are: ")   
+        print(cricket) 
+ 
+    for i in range(b1): 
+        name=input("Enter a name: ") 
+        badminton.add(name) 
+        print("names for badminton students are: ") 
+        print(badminton) 
+ 
+    for i in range(f1):
+        name=input("Enter a name: ")
+        football.add(name) 
+        print("names for football students are: ") 
+        print(football) 
+ 
+def play_cricket_badminton(cricket,badminton): 
+    play=set() 
+    for i in cricket: 
+        if i in badminton: 
+            play.add(i) 
+            print("The students who play both Cricket and Badminton are :",play) 
+def play_cricket_either_or_badminton (cricket,badminton): 
+    play=set() 
+    for i in cricket: 
+        if i in badminton: 
+            pass 
+        else: 
+            play.add(i) 
+    for i in badminton: 
+        if i in cricket: 
+            pass 
+        elif i not in play: 
+            play.add(i) 
+            print("The students who play either Cricket or Badminton but not both are :",play) 
+def neither_cricket_nor_badminton(cricket,badminton,football):
+    play = set() 
+    for i in football: 
+        if i not in cricket and badminton: 
+            play.add(i) 
+            print("The students who play neither Cricket nor Badminton but only football",play) 
+            print("Number of students who neither play Cricket nor Badminton is ",len(play)) 
+def cricket_and_football_not_badminton(cricket,badminton,football):
+    play = set() 
+    c_f= set() 
+    c_f = cricket 
+    for i in football: 
+        c_f.add(i) 
+    for i in c_f: 
+        if i not in badminton: 
+            play.add(i) 
+            print("The students who play Cricket and Football but not Badminton are :",play) 
+            print("Number of students who play Cricket and Football but not Badminton is ",len(play)) 
+def main(): 
+    print("Hello World") 
+    football=set() 
+    cricket=set() 
+    badminton=set() 
+    accept_data(cricket,badminton,football) 
+    play_cricket_badminton(cricket,badminton) 
+    play_cricket_either_or_badminton (cricket,badminton) 
+    neither_cricket_nor_badminton(cricket,badminton,football) 
+    cricket_and_football_not_badminton(cricket,badminton,football) 
+main()

@@ -1,0 +1,83 @@
+def main():
+    fds = []
+    
+    while True:
+        print("1)Enter Marks")
+        print("2)Display Marks")
+        print("3)Average of Marks")
+        print("4)Highest score and lowest Score")
+        print("5)Absent student Count")
+        print("6)Display marks with Highest Frequency")
+        print("7)End")
+        print("Enter your choice: ")
+        choice = int(input())
+
+        if choice == 7:
+            break
+        elif choice == 1:
+            accept_marks(fds)
+        elif choice == 2:
+            print("FDS Marks are: ")
+            print(fds)
+        elif choice == 3:
+            average_marks(fds)
+        elif choice == 4:
+            highest_lowest_marks(fds)
+        elif choice == 5:
+            absent_count(fds)
+        elif choice == 6:
+            display_marks_with_highest_frequency(fds)
+
+def accept_marks(fds):
+    print("Enter number of students: ")
+    n = int(input())
+    for i in range(n):
+        print("Enter marks: ")
+        x = int(input())
+        fds.append(x)
+
+def average_marks(fds):
+    total = 0
+    present = 0
+    for i in fds:
+        if i != -1:
+            total = total + i
+            present = present + 1
+    average_marks = total / present
+    print("Average is: ", average_marks)
+
+def highest_lowest_marks(fds):
+    highest = -1
+    lowest = 999
+    for i in fds:
+        if i != -1:
+            if i > highest:
+                highest = i
+            if i < lowest:
+                lowest = i
+    print("Highest Marks is: ", highest)
+    print("Lowest Marks is: ", lowest)
+
+def absent_count(fds):
+    count = 0
+    for i in fds:
+        if i == -1:
+            count = count + 1
+    print("Absent student: ")
+    print(count)
+
+def display_marks_with_highest_frequency(fds):
+    freq = 0
+    for i in range(len(fds)):
+        count = 0
+        if fds[i] != -1:
+            for j in range(len(fds)):
+                if fds[i] == fds[j]:
+                    count = count + 1
+            if freq < count:
+                freq = count
+                high_freq_mark = fds[i]
+    print("Highest frequency marks is ", high_freq_mark)
+    print("Highest frequency count is ", freq)
+
+main()

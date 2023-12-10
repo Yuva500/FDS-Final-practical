@@ -1,0 +1,225 @@
+/*
+Group D-11
+Infix to postfix and postfix evaluation
+
+*/
+#include<iostream>
+#include<math.h>
+using namespace std;
+#define SIZE 20
+
+template <class T>
+class mystack
+{
+	private :
+		T ST[SIZE];
+		int top;
+	public :
+		mystack();
+		bool push(T X);
+		T pop();
+		bool isEmpty();
+		bool isFull();
+		T get_top();
+};
+
+template <class T>
+mystack <T> :: mystack()
+{
+ 	top = -1;
+}
+
+template <class T>
+T mystack <T> :: get_top()
+{
+	if (top < 0) {
+        cout << "Stack is Empty";
+        return 0;
+    }
+    else {
+        T x = ST[top];
+        return x;
+    }
+}
+
+template <class T>
+bool mystack <T> :: push(T x)
+{
+	if (top >= (SIZE - 1)) {
+        cout << "Stack Overflow";
+        return false;
+    }
+    else {
+        ST[++top] = x;
+        //cout << x << " pushed into stack\n";
+        return true;
+    }
+}
+
+template <class T>
+T mystack <T> :: pop()
+{
+
+	if (top < 0) {
+        cout << "Stack Underflow";
+        return 0;
+    }
+    else {
+        T x = ST[top--];
+        return x;
+    }
+}
+
+template <class T>
+bool mystack <T> :: isEmpty()
+{
+	return (top < 0);
+}
+
+template <class T>
+bool mystack <T> :: isFull()
+{
+	if(top == SIZE-1)
+		return 1;
+	else
+		return 0;
+}
+
+
+//Function to return precedence of operators
+int prec_op(char c)
+{
+	if(c == '^')
+	return 3;
+	else if(c == '*' || c == '/')
+	return 2;
+	else if(c == '+' || c == '-')
+	return 1;
+	else
+	return -1;
+}
+
+string convert_infix_to_postfix(string in)
+{
+    mystack <char> st;
+	st.push('E');
+	int l = in.length();
+	string post;
+	for(int i = 0; i < l; i++)
+	{
+		if((in[i] >= 'a' && in[i] <= 'z') || (in[i] >= 'A' && in[i] <= 'Z'))    //if token is operand
+		{
+		    post+=in[i];
+		    //cout<<post;
+		}
+		else if(in[i] == '(')         //if token is (
+             st.push('(');
+		else if(in[i] == ')')
+		{
+			while(st.get_top() != 'E' && st.get_top() != '(')       //if token is )
+			{
+				char c = st.get_top();
+				st.pop();
+			post += c;
+			}
+			if(st.get_top() == '(')
+			{
+				char c = st.get_top();
+				st.pop();
+			}
+		}
+		else{
+			while(st.get_top() != 'E' && prec_op(in[i]) <= prec_op(st.get_top()))   ////if token is operator
+			{
+				char c = st.get_top();
+				st.pop();
+				post += c;
+			}
+			st.push(in[i]);
+		}
+	}
+
+	while(st.get_top() != 'E')
+	{
+		char c = st.get_top();
+		st.pop();
+		post += c;
+	}
+return post;
+}
+
+int get_operand_value(char op[],int value[],int n,char ch)
+{
+    for(int i=0;i<n;i++)
+
+        if(op[i] == ch)
+            return (value[i]);
+
+    return -1;
+}
+
+
+int evaluate_postfix(string post)
+{
+    mystack<int> st;
+    int n;
+    int res,op1,op2;
+    char op[10];
+    char optr;
+    int value[10];
+
+    cout<<"\n Enter number of operands in postfix expression : ";
+    cin>>n;
+
+    cout<<"\n Enter values of operands : ";
+    for(int i=0;i<n;i++)
+    {
+        cout<<"\n Enter operand "<<i+1<<" and its value : ";
+        cin>>op[i]>>value[i];
+    }
+
+     for(int i=0; post[i]!='\0'; i++)   // postfix evalution
+     {
+        if(post[i]>= 'a' && post[i] <= 'z')   //operand
+        {
+            st.push(get_operand_value(op,value,n,post[i]));
+        }
+        else
+        {
+            op2=st.pop();
+            op1=st.pop();
+            optr=post[i];
+            switch(optr)
+            {
+                case '+' : res = op1+op2;
+                           break;
+                case '-' : res = op1-op2;
+                           break;
+                case '*' : res = op1*op2;
+                           break;
+                case '/' : res = op1/op2;
+                           break;
+                case '^' : res = (int)pow(op1,op2);
+                           break;
+            }
+            st.push(res);
+        }
+    }
+    return (st.pop());
+}
+
+int main()
+{
+  string infix_exp, postfix_exp;
+  int result;
+
+  cout<<"\n\t Enter Infix Expression : ";
+  cin>>infix_exp;
+  postfix_exp = convert_infix_to_postfix(infix_exp);
+  cout<<"\n Postfix Expression :";
+  cout<<postfix_exp;
+
+  result=evaluate_postfix(postfix_exp);
+  cout<<"\n Postfix Evaluation Result : "<<result;
+
+}

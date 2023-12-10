@@ -1,0 +1,69 @@
+B)'''Write a python program to store roll no of students in array who attended training
+program in sorted order. Write function for searching whether particular student attending
+training program or not using binary search’''
+
+def main():
+    Roll_no = []
+
+    while True:
+        print("1. Accept roll no in sorted order")
+        print("2. Display roll no in sorted order")
+        print("3. Iterative Binary Search")
+        print("4. Recursive Binary Search")
+        print("5. End")
+        print("Enter your choice: ")
+        choice = int(input())
+
+        if choice == 5:
+            break
+        elif choice == 1:
+            Accept_Rollno(Roll_no)
+        elif choice == 2:
+            print("Entered sorted roll no are: ", Roll_no)
+        elif choice == 3:
+            Iterative_binary_search(Roll_no)
+        elif choice == 4:
+            low = 0
+            high = len(Roll_no) - 1
+            key = int(input("Enter Roll no to be searched: "))
+            Recursive_binary_search(Roll_no, low, high, key)
+
+def Accept_Rollno(Roll_no):
+    n = int(input("Enter the total no of students: "))
+    for i in range(n):
+        x = int(input("Enter roll no: "))
+        Roll_no.append(x)
+    Roll_no.sort()
+
+def Iterative_binary_search(Roll_no):
+    low = 0
+    high = len(Roll_no) - 1
+    key = int(input("Enter roll no to be searched: "))
+    
+    while low <= high:
+        mid = (low + high) // 2
+        if Roll_no[mid] == key:
+            print("Roll no found in training")
+            return
+        elif Roll_no[mid] < key:
+            low = mid + 1
+        else:
+            high = mid - 1
+    
+    print("Roll no not found in training")
+
+def Recursive_binary_search(Roll_no, low, high, key):
+    if low <= high:
+        mid = (low + high) // 2
+        if Roll_no[mid] == key:
+            print("Roll no found in training")
+            return
+        elif Roll_no[mid] < key:
+            Recursive_binary_search(Roll_no, mid + 1, high, key)
+        else:
+            Recursive_binary_search(Roll_no, low, mid - 1, key)
+    
+    if low > high:
+        print("Roll no not found in training")
+
+main()

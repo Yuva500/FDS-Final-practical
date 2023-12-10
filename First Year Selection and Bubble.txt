@@ -1,0 +1,87 @@
+"""Assignment No. 14 Group B"""
+"""Write a python program to store first year percentage of students in array.
+Write function for sorting array of floating point numbers in ascending order
+using
+a) Selection Sort
+b) Bubble sort and display top five scores.
+"""
+
+def main():
+    per = []
+    while True:
+        print("\n1. Accept percentage of first-year students")
+        print("2. Display")
+        print("3. Selection sort in ascending order")
+        print("4. Bubble sort in descending order and display top five scores")
+        print("5. Exit")
+        print("\nEnter choice:")
+        choice = int(input())
+        if choice == 5:
+            print("\nEnd of the program")
+            break
+        elif choice == 1:
+            Accept_Data(per)
+        elif choice == 2:
+            Display_Data(per)
+        elif choice == 3:
+            print("\nBefore sorting:")
+            Display_Data(per)
+            Selection_Sort(per)
+            print("\nAfter sorting:")
+            Display_Data(per)
+        elif choice == 4:
+            print("\nBefore Sorting:")
+            Display_Data(per)
+            Bubble_Sort(per)
+            print("\nAfter sorting:")
+            Display_Data(per)
+            print("\nTop five scores in descending order are:", end=' ')
+            n = len(per)
+            if n >= 5:
+                for i in range(4, -1, -1):
+                    print(per[i], end=' ')
+            else:
+                Display_Data(per)
+
+
+def Accept_Data(per):
+    print("\nEnter the total number of students:")
+    n = int(input())
+    print("\nEnter percentage for students:")
+    for i in range(n):
+        f = float(input())
+        per.append(f)
+    print("\nData entered successfully.")
+
+
+def Display_Data(per):
+    n = len(per)
+    print("\nEntered percentage array is:", end=' ')
+    for i in range(n):
+        print(per[i], end='  ')
+
+
+def Selection_Sort(per):
+    n = len(per)
+    for i in range(n - 1):
+        min_ind = i
+        for j in range(i + 1, n):
+            if per[j] < per[min_ind]:
+                min_ind = j
+        temp = per[i]
+        per[i] = per[min_ind]
+        per[min_ind] = temp
+
+
+def Bubble_Sort(per):
+    n = len(per)
+    for i in range(1, n):
+        for j in range(n - i):
+            if per[j] < per[j + 1]:
+                temp = per[j]
+                per[j] = per[j + 1]
+                per[j + 1] = temp
+
+
+# Call the main function to run the program
+main()

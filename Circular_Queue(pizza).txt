@@ -1,0 +1,114 @@
+// Pizza parlour is accepting maximum M orders. Orders are served in first come first served 
+// basis. Order once placed cannot be cancelled. Write C++ program to simulate the system 
+// using circular queue using array. 
+
+
+
+
+#include <iostream>
+using namespace std;
+
+const int MAX_ORDERS = 10;
+
+class CircularQueue {
+private:
+    int front, rear, itemCount;
+    int orders[MAX_ORDERS];
+
+public:
+    CircularQueue() {
+        front = -1;
+        rear = -1;
+        itemCount = 0;
+    }
+
+    bool isEmpty() {
+        return (itemCount == 0);
+    }
+
+    bool isFull() {
+        return (itemCount == MAX_ORDERS);
+    }
+
+    void enqueue(int order) {
+        if (isFull()) {
+            cout << "Maximum orders reached. Cannot accept more orders.\n";
+            return;
+        }
+
+        if (isEmpty()) {
+            front = rear = 0;
+        } else {
+            rear = (rear + 1) % MAX_ORDERS;
+        }
+
+        orders[rear] = order;
+        itemCount++;
+        cout << "Order " << order << " placed successfully.\n";
+    }
+
+    void dequeue() {
+        if (isEmpty()) {
+            cout << "No orders to serve.\n";
+            return;
+        }
+
+        int servedOrder = orders[front];
+        cout << "Order " << servedOrder << " served and removed from the queue.\n";
+
+        if (front == rear) {
+            front = rear = -1;
+        } else {
+            front = (front + 1) % MAX_ORDERS;
+        }
+
+        itemCount--;
+    }
+
+    void displayOrders() {
+        if (isEmpty()) {
+            cout << "No orders to display.\n";
+            return;
+        }
+
+        cout << "Orders in the queue: ";
+        int i = front;
+        while (true) {
+            cout << orders[i] << " ";
+            if (i == rear) {
+                break;
+            }
+            i = (i + 1) % MAX_ORDERS;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    CircularQueue pizzaQueue;
+
+    // Placing orders
+    pizzaQueue.enqueue(101);
+    pizzaQueue.enqueue(102);
+    pizzaQueue.enqueue(103);
+    pizzaQueue.enqueue(104);
+
+    // Displaying orders
+    pizzaQueue.displayOrders();
+
+    // Serving orders
+    pizzaQueue.dequeue();
+    pizzaQueue.dequeue();
+
+    // Displaying orders after serving
+    pizzaQueue.displayOrders();
+
+    // Placing more orders
+    pizzaQueue.enqueue(105);
+    pizzaQueue.enqueue(106);
+
+    // Displaying orders after placing more orders
+    pizzaQueue.displayOrders();
+
+    return 0;
+}

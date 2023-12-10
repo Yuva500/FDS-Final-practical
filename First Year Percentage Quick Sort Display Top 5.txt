@@ -1,0 +1,81 @@
+"""GroupB_16"""
+"""Write a python program to store first year percentage of students in array.
+Write function for sorting array of floating point numbers in ascending
+order using quick sort and display top five scores.
+"""
+
+def main():
+    Per = []  # Define Per outside the loop
+    while True:
+        print("\n1. Accept Data")
+        print("2. Display Data")
+        print("3. Quick sort")
+        print("4. Display top five scores.")
+        print("5. Exit")
+        print("\nEnter value for choice")
+        choice = int(input())
+        if choice == 5:
+            print("End of Program")
+            break
+        elif choice == 1:
+            Accept_Data(Per)
+        elif choice == 2:
+            Display_Data(Per)
+        elif choice == 3:
+            print("\nBefore sorting ")
+            Display_Data(Per)
+            n = len(Per)
+            Quick_Sort(Per, 0, n - 1)
+            print("\nAfter Sorting")
+            Display_Data(Per)
+        elif choice == 4:
+            n = len(Per)
+            print("\nTop five Scores ", end=' ')
+            if n <= 5:
+                for i in range(n - 1, -1, -1):
+                    print(Per[i], end=' ')
+            else:
+                for i in range(n - 1, n - 6, -1):
+                    print(Per[i], end=' ')
+
+
+def Accept_Data(Per):
+    print("\nEnter total number of students")
+    n = int(input())
+    print("\nEnter percentage in floating point number")
+    for i in range(n):
+        x = float(input())
+        Per.append(x)
+
+
+def Display_Data(Per):
+    print("\nPercentage of students are ", end=' ')
+    n = len(Per)
+    for i in Per:
+        print(i, end=' ')
+
+
+def Quick_Sort(Per, first, last):
+    pivot = first
+    i = first
+    j = last
+    if i < j:
+        while i < j:
+            while Per[i] < Per[pivot] and i < last:
+                i = i + 1
+            while Per[j] > Per[pivot]:
+                j = j - 1
+            if i < j:
+                temp = Per[i]
+                Per[i] = Per[j]
+                Per[j] = temp
+        x = Per[pivot]
+        Per[pivot] = Per[j]
+        Per[j] = x
+        Quick_Sort(Per, first, j - 1)
+        Quick_Sort(Per, j + 1, last)
+
+
+# Call the main function to run the program
+main()
+

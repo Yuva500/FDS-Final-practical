@@ -1,0 +1,51 @@
+Write a python program to store first year percentage of students in array. Write 
+function for sorting array of floating point numbers in ascending order using  
+a) Selection Sort  
+b) Bubble sort and display top five scores.
+
+def selection_sort(arr):
+    n = len(arr)
+    for i in range(n - 1):
+        min_index = i
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_index]:
+                min_index = j
+        arr[i], arr[min_index] = arr[min_index], arr[i]
+
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
+def display_top_five(arr):
+    print("\nTop Five Scores:")
+    for i in range(min(5, len(arr))):
+        print(f"{i + 1}. {arr[i]:.2f}%")
+
+def main():
+    # Input the first-year percentages
+    num_students = int(input("Enter the number of students: "))
+    percentages = []
+
+    for i in range(num_students):
+        percentage = float(input(f"Enter the percentage of student {i + 1}: "))
+        percentages.append(percentage)
+
+    # Copy the array for sorting using different algorithms
+    selection_sort_arr = percentages.copy()
+    bubble_sort_arr = percentages.copy()
+
+    # Sorting using Selection Sort
+    selection_sort(selection_sort_arr)
+    print("\nArray sorted using Selection Sort:", selection_sort_arr)
+    display_top_five(selection_sort_arr)
+
+    # Sorting using Bubble Sort
+    bubble_sort(bubble_sort_arr)
+    print("\nArray sorted using Bubble Sort:", bubble_sort_arr)
+    display_top_five(bubble_sort_arr)
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,109 @@
+def main():
+    cricket = []
+    badminton = []
+    football = []
+
+    while True:
+        print("1)ACCEPT DATA.")
+        print("2)DISPLAY DATA.")
+        print("3)LIST OF STUDENT WHO PLAY BOTH CRICKET AND BADMINTON.")
+        print("4)LIST OF STUDENT WHO PLAY EITHER CRICKET OR BADMINTON BUT NOT BOTH.")
+        print("5)NUMBER OF STUDENT WHO PLAY NEITHER CRICKET NOR BADMINTON.")
+        print("6)NUMBER OF STUDENT WHO PLAY CRICKET AND FOOTBALL BUT NOT BADMINTON.")
+        print("7)END.")
+        print("ENTER YOUR CHOICE:")
+        choice = int(input())
+
+        if choice == 1:
+            print("ENTER DATA FOR CRICKET:")
+            Accept(cricket)
+            print("ENTER DATA FOR BADMINTON:")
+            Accept(badminton)
+            print("ENTER DATA FOR FOOTBALL:")
+            Accept(football)
+        elif choice == 2:
+            print("DATA FOR CRICKET:")
+            print(cricket)
+            print("DATA FOR BADMINTON:")
+            print(badminton)
+            print("DATA FOR FOOTBALL:")
+            print(football)
+        elif choice == 3:
+            cricket_badminton(cricket, badminton)
+        elif choice == 4:
+            either_cricket_badminton(cricket, badminton)
+        elif choice == 5:
+            neither_cricket_nor_badminton(cricket, badminton, football)
+        elif choice == 6:
+            either_cricket_football_nor_badminton(cricket, badminton, football)
+        elif choice == 7:
+            break
+
+def Accept(player):
+    n = int(input("ENTER HOW MANY PLAYERS: "))
+    for i in range(n):
+        x = input("ENTER NAME: ")
+        player.append(x)
+
+def cricket_badminton(cricket, badminton):
+    cr_bad = []
+    for i in range(len(cricket)):
+        x = cricket[i]
+        if x in badminton:
+            cr_bad.append(x)
+    print("LIST OF STUDENTS WHO PLAY BOTH CRICKET AND BADMINTON: ")
+    print(cr_bad)
+
+def either_cricket_badminton(cricket, badminton):
+    final = []
+    for a in range(len(cricket)):
+        final.append(cricket[a])
+
+    output = []
+    for i in range(len(badminton)):
+        if badminton[i] not in cricket:
+            final.append(badminton[i])
+
+    intersection = []
+    for i in range(len(cricket)):
+        if cricket[i] in badminton:
+            intersection.append(cricket[i])
+
+    for i in range(len(final)):
+        if final[i] not in intersection:
+            output.append(final[i])
+
+    print("LIST OF STUDENTS WHO PLAY EITHER CRICKET OR BADMINTON BUT NOT BOTH: ")
+    print(output)
+
+def neither_cricket_nor_badminton(cricket, badminton, football):
+    final = []
+    for i in range(len(cricket)):
+        final.append(cricket[i])
+
+    for i in range(len(badminton)):
+        if badminton[i] not in final:
+            final.append(badminton[i])
+
+    output = []
+    for i in range(len(football)):
+        if football[i] not in final:
+            output.append(football[i])
+
+    print("THE STUDENTS WHO NEITHER PLAY CRICKET NOR BADMINTON ARE: ")
+    print(output)
+
+def either_cricket_football_nor_badminton(cricket, badminton, football):
+    final = []
+    output = []
+    for i in range(len(cricket)):
+        if cricket[i] in football:
+            final.append(cricket[i])
+
+    for i in range(len(final)):
+        output.append(final[i])
+
+    print("THE STUDENTS WHO PLAY CRICKET AND FOOTBALL BUT NOT BADMINTON: ")
+    print(output)
+
+main()

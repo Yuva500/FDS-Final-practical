@@ -1,0 +1,277 @@
+/* Group C-1
+Department of Computer Engineering has student's club named 'Pinnacle Club'.
+Students of Second, third and final year of department can be granted membership on request.
+Similarly one may cancel the membership of club.
+First node is reserved for president of club and last node is reserved for secretary of club.
+Write C++ program to maintain club members information
+using singly linked list. Store student PRN and Name. Write functions to
+a)	Add and delete the members as well as president or even secretary.
+b)	Compute total number of members of club
+c)	Display members
+d)	Two linked lists exists for two divisions. Concatenate two lists.
+*/
+
+#include<iostream.h>
+#include<conio.h>
+class Node
+{
+  public:
+  int PRN;
+  char name[10];
+  Node *next;
+};
+class Pinnacle
+{
+ Node *head;
+ public:
+   Pinnacle()
+  {
+     head=NULL;
+  }
+  void create();
+  void display();
+  void total_members();
+  void insert_begin();
+  void insert_end();
+  void insert_middle();
+  void delete_begin();
+  void delete_end();
+  void delete_middle();
+  void concatenate(Pinnacle P2);
+};
+void Pinnacle::concatenate(Pinnacle P2)
+{
+  Node *temp;
+  temp=head;
+  if(head==NULL)
+  {
+   cout<<"\nFirst list is empty";
+   head=P2.head;
+   }
+   else
+   {
+     if(P2.head==NULL)
+     {
+       cout<<"\nSecond List is empty";
+     }
+     else
+     {
+       while(temp->next!=NULL)
+       {
+	 temp=temp->next;
+       }
+       temp->next=P2.head;
+     }
+   }
+}
+
+void Pinnacle::delete_middle()
+{
+  Node *p1,*p2;
+  p1=head;
+  if(head==NULL)
+  {
+   cout<<"\nList is empty";
+  }
+  else
+  {
+   int position;
+   cout<<"\nEnter member position to delete";
+   cin>>position;
+   for(int i=0;i<position-1;i++)
+   {
+     p2=p1;
+     p1=p1->next;
+   }
+   p2->next=p1->next;
+   p1->next=NULL;
+   delete p1;
+   cout<<"\nMiddle member with position "<<position<<" deleted successfully";
+  }
+}
+
+void Pinnacle::delete_end()
+{
+ Node *p1,*p2;
+ p1=head;
+ if(head==NULL)
+ {
+   cout<<"\nList is empty";
+ }
+ else
+ {
+  cout<<"\nLast member deleted successfully";
+  while(p1->next!=NULL)
+  {
+    p2=p1;
+    p1=p1->next;
+  }
+  p2->next=NULL;
+  delete p1;
+ }
+
+}
+
+void Pinnacle::delete_begin()
+{
+ Node *temp;
+ temp=head;
+ if(head==NULL)
+ { cout<<"\nList is Empty";
+ }
+ else
+ {
+  cout<<"\nFirst Member deleted successfully";
+  head=head->next;
+  temp->next=NULL;
+  delete temp;
+ }
+}
+
+void Pinnacle::insert_middle()
+{
+  cout<<"\nInsert at Middle";
+  Node *newnode=new Node;
+  cout<<"\nEnter PRN ";
+  cin>>newnode->PRN;
+  cout<<"\nEnter Name ";
+  cin>>newnode->name;
+  newnode->next=NULL;
+  int position;
+  cout<<"\nEnter Position ";
+  cin>>position;
+  char choice;
+  cout<<"\nEnter choice where you want to insert after 'a'/before 'b'";
+  cin>>choice;
+  if(choice=='a')
+  {
+   Node *temp=head;
+   for(int i=0;i<position-1;i++)
+     temp=temp->next;
+   newnode->next=temp->next;
+   temp->next=newnode;
+  }
+  else
+  {
+  Node *p1,*p2;
+  p1=head;
+  for(int i=0;i<position-1;i++)
+  {
+    p2=p1;
+    p1=p1->next;
+  }
+  newnode->next=p2->next;
+  p2->next=newnode;
+  }
+}
+
+void Pinnacle::insert_end()
+{
+  Node *newnode;
+  newnode=new Node;
+  cout<<"\nEnter PRN for secretory";
+  cin>>newnode->PRN;
+  cout<<"\nEnter name for secretory";
+  cin>>newnode->name;
+  newnode->next=NULL;
+  Node *temp;
+  temp=head;
+  while(temp->next!=NULL)
+  {
+    temp=temp->next;
+  }
+  temp->next=newnode;
+}
+
+void Pinnacle::insert_begin()
+{ Node *newnode;
+  newnode= new Node;
+  cout<<"\nEnter PRN for president";
+  cin>>newnode->PRN;
+  cout<<"\nEnter name for president";
+  cin>>newnode->name;
+  newnode->next=head;
+  head=newnode;
+
+}
+
+void Pinnacle::total_members()
+{
+ Node *temp;
+ temp=head;
+ int count=0;
+ while(temp!=NULL)
+ {
+  count++;
+  temp=temp->next;
+ }
+ cout<<"\nTotal Members in the Pinnacle club are "<<count;
+}
+
+void Pinnacle::create()
+{
+  int n;
+  cout<<"\n how many members you want to add";
+  cin>>n;
+  for(int i=0;i<n;i++)
+  {
+     Node *newnode;
+     newnode =new Node;
+     cout<<"\nEnter PRN";
+     cin>>newnode->PRN;
+     cout<<"\nEnter Name";
+     cin>>newnode->name;
+     newnode->next=NULL;
+     if(head==NULL)
+       head=newnode;
+     else
+     {
+	Node *temp;
+	temp=head;
+	while(temp->next!=NULL)
+	      temp=temp->next;
+	temp->next=newnode;
+     }
+
+  }
+}
+void Pinnacle::display()
+{
+  Node *temp;
+  temp=head;
+  cout<<"\nMembers of the club are";
+  while(temp!=NULL)
+  {
+    cout<<"\n"<<temp->PRN<<"\t"<<temp->name;
+    temp=temp->next;
+  }
+}
+int main()
+{
+  clrscr();
+  Pinnacle P1;
+  P1.create();
+  P1.display();
+  P1.total_members();
+  P1.insert_begin();
+  P1.display();
+  P1.insert_end();
+  P1.display();
+  P1.insert_middle();
+  P1.display();
+  P1.total_members();
+  P1.delete_begin();
+  P1.display();
+  P1.delete_end();
+  P1.display();
+  P1.delete_middle();
+  P1.display();
+  Pinnacle P2;
+  P2.create();
+  P2.display();
+  cout<<"\nConcatenation of first and second list is ";
+  P1.concatenate(P2);
+  P1.display();
+  getch();
+return 0;
+}

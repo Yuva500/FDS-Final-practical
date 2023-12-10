@@ -1,0 +1,107 @@
+"""Write a python program to store second year percentage of students in array. Write function for sorting array of floating point numbers in ascending order using
+a) Insertion sort
+b) Shell Sort and display top five scores
+"""
+
+def main():
+    Per = []  # Initialize the list outside the loop
+    while True:
+        print("\n1. Accept Data")
+        print("2. Display Data")
+        print("3. Insertion Sort")
+        print("4. Shell Sort and display top five scores")
+        print("5. Exit")
+        print("\nEnter your choice:")
+        choice = int(input())
+        if choice == 5:
+            print("\nEnd of program")
+            break
+        elif choice == 1:
+            Accept_Data(Per)
+        elif choice == 2:
+            Display_Data(Per)
+        elif choice == 3:
+            print("Before sorting:")
+            Display_Data(Per)
+            print("After sorting:")
+            Insertion_Sort(Per)
+            Display_Data(Per)
+        elif choice == 4:
+            print("Before sorting:")
+            Display_Data(Per)
+            Shell_Sort(Per)
+            print("\nAfter sorting:")
+            Display_Data(Per)
+            print("\nTop five scores are:", end=' ')
+            n = len(Per)
+            if n > 5:
+                for i in range(n - 1, n - 6, -1):
+                    print(Per[i], end=' ')
+            else:
+                for i in range(n - 1, -1, -1):
+                    print(Per[i], end=' ')
+
+
+def Accept_Data(Per):
+    print("\nEnter the number of students for whom you want to input percentages:")
+    n = int(input())
+    print("\nEnter percentages for students:")
+    for i in range(n):
+        x = int(input())
+        Per.append(x)
+
+
+def Display_Data(Per):
+    print("\nPercentage of students are:", end=' ')
+    for i in Per:
+        print(i, end=' ')
+
+
+def Insertion_Sort(Per):
+    n = len(Per)
+    for i in range(1, n):
+        temp = Per[i]
+        j = i - 1
+        while j >= 0 and Per[j] > temp:
+            Per[j + 1] = Per[j]
+            j = j - 1
+        Per[j + 1] = temp
+
+
+def Shell_Sort(Per):
+    n = len(Per)
+    gap = n // 2
+    while gap >= 1:
+        j = gap
+        while j < n:
+            i = j - gap
+            while i >= 0:
+                if Per[i + gap] > Per[i]:
+                    break
+                else:
+                    temp = Per[i + gap]
+                    Per[i + gap] = Per[i]
+                    Per[i] = temp
+                i = i - gap
+            j = j + 1
+        gap = gap // 2
+
+
+# Call the main function to run the program
+main()
+
+
+
+
+    
+
+
+          
+
+
+
+
+            
+
+
+

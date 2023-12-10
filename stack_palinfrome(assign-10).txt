@@ -1,0 +1,96 @@
+// Write C++ program with functions-  
+// a) To print original string followed by reversed string using stack  
+// b) To check whether given string is palindrome or not  
+
+#include<iostream>
+#define N 5 
+using namespace std ;
+
+string stack[N];
+int top = -1 ;
+
+void push(string x)
+{
+    if(top == N-1)
+    {
+        cout<<"Stack is full " ;
+    }
+    else if(top == -1)
+    
+    {
+        top = 0 ;
+        stack[top] = x ;
+
+    }
+    else
+    {
+        top++;
+        stack[top] = x;        
+    }
+}
+
+void reverse(string &str)
+{
+    int start = 0;
+    int end = str.length() - 1;
+    while(start<=end)
+    {
+        swap(str[start] , str[end]);
+        start++;
+        end--;
+    }
+}
+
+
+void Display()
+{
+    if(top == -1)
+    {
+        cout<<"Stack is empty" ;
+    }
+    else
+    {   cout<<"Orignal string is "<<endl ;
+        for(int i = 0 ; i<=top ; i++)
+        {
+            cout<<stack[i] << " " ;
+        }
+
+        bool isPalindrome = true ;
+        cout<<endl << "Reversed string is "<<endl ;
+        for(int i = top ; i>= 0 ; i-- )
+        {
+            string toreverse = stack[i] ;
+            reverse(toreverse);
+            cout<< toreverse << " " ;
+
+            if (stack[i] != toreverse)
+            {
+                isPalindrome = false ;
+            }
+        }
+        cout<<endl ;
+        
+        if(isPalindrome)
+        {
+            cout<<"The 2 strings are Palindromes " << endl ;
+        }
+        else
+        {
+            cout<<"The 2 strings are not palindrome "<<endl;
+        }
+        
+       
+    }
+}
+
+int main()
+{
+    push("india");
+    push("is");
+    push("my");
+    push("country");
+
+    Display();
+
+    return 0 ;
+}

@@ -1,0 +1,172 @@
+// // Write C++ program to implement Singly Linked List and operations on it- 
+// # a) Add and delete node  
+// # b) Compute total number of nodes  
+// # c) Traverse List  
+// # d) Display list in reverse order using recursion  
+// # e) Concatenate two lists  
+
+#include <iostream>
+
+using namespace std;
+
+// Node structure
+struct Node {
+    int data;
+    Node* next;
+};
+
+// Singly Linked List class
+class SinglyLinkedList {
+private:
+    Node* head;
+
+public:
+    // Constructor
+    SinglyLinkedList() {
+        head = nullptr;
+    }
+
+    // Function to add a node at the end of the list
+    void addNode(int value) {
+        Node* newNode = new Node;
+        newNode->data = value;
+        newNode->next = nullptr;
+
+        if (head == nullptr) {
+            head = newNode;
+        } else {
+            Node* temp = head;
+            while (temp->next != nullptr) {
+                temp = temp->next;
+            }
+            temp->next = newNode;
+        }
+    }
+
+    // Function to delete a node with given value
+    void deleteNode(int value) {
+        if (head == nullptr) {
+            cout << "List is empty. Cannot delete.\n";
+            return;
+        }
+
+        Node* temp = head;
+        Node* prev = nullptr;
+
+        // If the node to be deleted is the first node
+        if (temp != nullptr && temp->data == value) {
+            head = temp->next;
+            delete temp;
+            cout << "Node with value " << value << " deleted successfully.\n";
+            return;
+        }
+
+        // Search for the node with the given value
+        while (temp != nullptr && temp->data != value) {
+            prev = temp;
+            temp = temp->next;
+        }
+
+        // If the value is not present in the list
+        if (temp == nullptr) {
+            cout << "Node with value " << value << " not found.\n";
+            return;
+        }
+
+        // Unlink the node from the list
+        prev->next = temp->next;
+        delete temp;
+        cout << "Node with value " << value << " deleted successfully.\n";
+    }
+
+    // Function to compute the total number of nodes
+    int countNodes() {
+        int count = 0;
+        Node* temp = head;
+        while (temp != nullptr) {
+            count++;
+            temp = temp->next;
+        }
+        return count;
+    }
+
+    // Function to traverse the list and display nodes
+    void traverseList() {
+        if (head == nullptr) {
+            cout << "List is empty.\n";
+            return;
+        }
+
+        Node* temp = head;
+        cout << "List: ";
+        while (temp != nullptr) {
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+
+    // Function to display the list in reverse order using recursion
+    void displayReverse(Node* node) {
+        if (node == nullptr) {
+            return;
+        }
+        displayReverse(node->next);
+        cout << node->data << " ";
+    }
+
+    // Function to concatenate two lists
+    void concatenateLists(SinglyLinkedList& list2) {
+        Node* temp = head;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+        temp->next = list2.head;
+    }
+};
+
+int main() {
+    SinglyLinkedList list1, list2;
+
+    // Adding nodes to the first list
+    list1.addNode(1);
+    list1.addNode(2);
+    list1.addNode(3);
+
+    // Displaying the first list
+    cout << "List 1:\n";
+    list1.traverseList();
+
+    // Adding nodes to the second list
+    list2.addNode(4);
+    list2.addNode(5);
+    list2.addNode(6);
+
+    // Displaying the second list
+    cout << "\nList 2:\n";
+    list2.traverseList();
+
+    // Concatenating the two lists
+    list1.concatenateLists(list2);
+
+    // Displaying the concatenated list
+    cout << "\nConcatenated List:\n";
+    list1.traverseList();
+
+    // Deleting a node from the concatenated list
+    list1.deleteNode(3);
+
+    // Displaying the concatenated list after deletion
+    cout << "\nConcatenated List after deletion:\n";
+    list1.traverseList();
+
+    // Displaying the concatenated list in reverse order
+    cout << "\nConcatenated List in Reverse Order:\n";
+    list1.displayReverse(list1.head);
+    cout << endl;
+
+    // Computing the total number of nodes in the concatenated list
+    cout << "\nTotal number of nodes in the concatenated list: " << list1.countNodes() << endl;
+
+    return 0;
+}

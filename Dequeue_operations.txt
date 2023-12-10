@@ -1,0 +1,143 @@
+// A double-ended queue (deque) is a linear list in which addition and deletion may be made at 
+// either end. Obtain a data representation mapping a deque into a one-dimensional array.  
+// Write a c++ program to simulate deque with functions to add and delete elements from either 
+// end of deque.
+
+#include <iostream>
+using namespace std;
+
+// Maximum size of the deque
+const int MAX_SIZE = 10;
+
+// Deque class
+class Deque {
+private:
+    int arr[MAX_SIZE];
+    int front, rear;
+
+public:
+    // Constructor
+    Deque() {
+        front = -1;
+        rear = -1;
+    }
+
+    // Function to check if the deque is empty
+    bool isEmpty() {
+        return (front == -1 && rear == -1);
+    }
+
+    // Function to check if the deque is full
+    bool isFull() {
+        return ((rear + 1) % MAX_SIZE == front);
+    }
+
+    // Function to add an element at the front of the deque
+    void addFront(int element) {
+        if (isFull()) {
+            cout << "Deque is full. Cannot add element at the front.\n";
+            return;
+        }
+
+        if (isEmpty()) {
+            front = rear = 0;
+        } else {
+            front = (front - 1 + MAX_SIZE) % MAX_SIZE;
+        }
+
+        arr[front] = element;
+        cout << "Element " << element << " added at the front.\n";
+    }
+
+    // Function to add an element at the rear of the deque
+    void addRear(int element) {
+        if (isFull()) {
+            cout << "Deque is full. Cannot add element at the rear.\n";
+            return;
+        }
+
+        if (isEmpty()) {
+            front = rear = 0;
+        } else {
+            rear = (rear + 1) % MAX_SIZE;
+        }
+
+        arr[rear] = element;
+        cout << "Element " << element << " added at the rear.\n";
+    }
+
+    // Function to delete an element from the front of the deque
+    void deleteFront() {
+        if (isEmpty()) {
+            cout << "Deque is empty. Cannot delete from the front.\n";
+            return;
+        }
+
+        if (front == rear) {
+            front = rear = -1;
+        } else {
+            front = (front + 1) % MAX_SIZE;
+        }
+
+        cout << "Element deleted from the front.\n";
+    }
+
+    // Function to delete an element from the rear of the deque
+    void deleteRear() {
+        if (isEmpty()) {
+            cout << "Deque is empty. Cannot delete from the rear.\n";
+            return;
+        }
+
+        if (front == rear) {
+            front = rear = -1;
+        } else {
+            rear = (rear - 1 + MAX_SIZE) % MAX_SIZE;
+        }
+
+        cout << "Element deleted from the rear.\n";
+    }
+
+    // Function to display the elements of the deque
+    void displayDeque() {
+        if (isEmpty()) {
+            cout << "Deque is empty.\n";
+            return;
+        }
+
+        cout << "Deque: ";
+        int i = front;
+        while (true) {
+            cout << arr[i] << " ";
+            if (i == rear) {
+                break;
+            }
+            i = (i + 1) % MAX_SIZE;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Deque myDeque;
+
+    // Adding elements to the deque
+    myDeque.addFront(1);
+    myDeque.addRear(2);
+    myDeque.addFront(3);
+    myDeque.addRear(4);
+
+    // Displaying the deque
+    myDeque.displayDeque();
+
+    // Deleting elements from the deque
+    myDeque.deleteFront();
+    myDeque.deleteRear();
+
+    // Displaying the deque after deletion
+    myDeque.displayDeque();
+
+    return 0;
+}
+
+
